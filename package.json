@@ -1,0 +1,23 @@
+{
+  "name": "vanishit",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^4.4.0",
+    "@types/file-saver": "^2.0.7",
+    "@vueuse/nuxt": "^14.2.1",
+    "file-saver": "^2.0.5",
+    "nuxt": "^4.3.1",
+    "piexifjs": "^1.0.6",
+    "v-gsap-nuxt": "^1.5.12",
+    "vue": "^3.5.28",
+    "vue-router": "^4.6.4"
+  }
+}
