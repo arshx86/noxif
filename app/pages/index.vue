@@ -20,6 +20,8 @@
           <p class="text-sm font-mono text-muted">Drop an image to strip its metadata</p>
           <p class="text-xs font-mono text-dimmed">JPG / JPEG / TIFF</p>
           <NuxtLink
+            external
+            target="_blank"
             to="https://github.com/arshx86/noxif"
             class="text-xs font-mono text-primary underline">
             Github
@@ -150,7 +152,15 @@
 <script setup lang="ts">
 import { useFileDialog, useDropZone } from "@vueuse/core";
 import piexif from "piexifjs";
-import { saveAs } from "file-saver";
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 type Stage = "idle" | "loaded" | "processing" | "done";
 
@@ -300,10 +310,10 @@ function stripAndDownload() {
     try {
       const cleaned = piexif.remove(rawImageData.value);
       const blob = dataURLtoBlob(cleaned);
-      saveAs(blob, `vanished_${currentFile.value!.name}`);
+      downloadBlob(blob, `vanished_${currentFile.value!.name}`);
     } catch {
       const blob = dataURLtoBlob(rawImageData.value);
-      saveAs(blob, `vanished_${currentFile.value!.name}`);
+      downloadBlob(blob, `vanished_${currentFile.value!.name}`);
     }
     stage.value = "done";
   }, 800);
